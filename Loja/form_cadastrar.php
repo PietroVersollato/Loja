@@ -4,15 +4,16 @@ include 'cabecalho.php';
 
 <body>
     <div class="container">
-        <form>
+        <h2>CADASTRO DE PRODUTO</h2>
+        <form action="inserir.php" method="POST">
             <div class="mb-3">
                 <input class="form-control" type="texte" name="produto" placeholder="Digite o nome do Produto">
             </div>
             <div class="mb-3">
-                <input class="form-control" type="texte" name="produto" placeholder="Digite o preço do Produto">
+                <input class="form-control" type="texte" name="preco" placeholder="Digite o preço do Produto">
             </div>
             <div class="mb-3">
-                <input class="form-control" type="texte" name="produto" placeholder="Digite a quantidade">
+                <input class="form-control" type="texte" name="quantidade" placeholder="Digite a quantidade">
             </div>
             <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
