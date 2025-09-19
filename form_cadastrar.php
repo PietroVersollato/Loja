@@ -1,27 +1,31 @@
-<?php
-include 'cabecalho.php';
-?>
-
-<body>
-    <div class="container">
-        <h2>CADASTRO DE PRODUTO</h2>
-        <form action="inserir.php" method="POST">
+<?php include 'cabecalho.php'; ?>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">Cadastrar Produto</div>
+        <div class="card-body">
+          <form action="inserir.php" method="post">
             <div class="mb-3">
-                <input class="form-control" type="texte" name="produto" placeholder="Digite o nome do Produto">
+              <label class="form-label">Nome</label>
+              <input type="text" name="nome" class="form-control" required>
             </div>
             <div class="mb-3">
-                <input class="form-control" type="texte" name="preco" placeholder="Digite o preço do Produto">
+              <label class="form-label">Preço (R$)</label>
+              <input type="number" name="preco" step="0.01" class="form-control" required>
             </div>
             <div class="mb-3">
-                <input class="form-control" type="texte" name="quantidade" placeholder="Digite a quantidade">
+              <label class="form-label">Quantidade</label>
+              <input type="number" name="quantidade" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
+              <a href="listar.php" class="btn btn-secondary"><i class="fa fa-arrow-left"></i> Voltar</a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-        </script>
-</body>
-
-</html>
+  </div>
+</div>
+<?php include 'rodape.php'; ?>

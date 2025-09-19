@@ -1,18 +1,17 @@
 <?php
-require 'conexao.php';
-$nome = $_POST['produto'];
-$preco = $_POST['preco'];
-$estoque = $_POST['quantidade'];
+include 'conexao.php';
 
-$sql = "INSERT INTO produtos (nome, preco, quantidade) VALUES (:nome, :preco, :quantidade)";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $nome       = trim($_POST['nome']);
+    $preco      = trim($_POST['preco']);
+    $quantidade = trim($_POST['quantidade']);
 
-$stmt = $pdo->prepare($sql);
-$stmt->bindParam(':nome', $nome);
-$stmt->bindParam(':preco', $preco);
-$stmt->bindParam(':quantidade', $estoque);
-if ($stmt->execute()) {
-    echo "Produto inserido com sucesso!";
-} else {
-    echo "Erro ao inserir produto.";
+    $sql = "INSERT INTO produtos (nome, preco, quantidade)
+            VALUES (:nome, :preco, :quantidade)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':preco', $preco);
+    $stmt->bindParam(':quantidade', $quantidade);
+    $stmt->execute();
+    header("Location: listar.php");
 }
-?>

@@ -1,48 +1,45 @@
 <?php
 include 'cabecalho.php';
+include 'conexao.php';
+
+$id = $_GET['id'] ?? 0;
+$stmt = $pdo->prepare("SELECT * FROM produtos WHERE id = :id");
+$stmt->bindParam(':id', $id, PDO::PARAM_INT);
+$stmt->execute();
+$produto = $stmt->fetch();
+if (!$produto) {
+    echo "<div class='container my-5'><div class='alert alert-danger'>Produto não encontrado.</div></div>";
+    include 'rodape.php'; exit;
+}
 ?>
-
-<body>
-    <div class="container">
-        <h2>ATUALIZAR PRODUTOS</h2>
-        <?php
-        $id = $_GET['id'];
-        //echo "Recebi ==> $id";
-        
-        require 'conexao.php';
-        $sql = "SELECT * FROM produtos WHERE id=$id";
-        $stmt = $pdo->query($sql);
-        $produto = $stmt->fetch(PDO::FETCH_ASSOC);
-        //print_r($produto);
-
-        //echo $produto["nome"];
-
-        // while ($produto = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        //    echo "ID: " . $produto['id'] . "<br>";
-        //    echo "Nome: " . $produto['nome'] . "<br>";
-        //    echo "Preço: R$" . $produto['preco'] . "<br>";
-        //    echo "Estoque: " . $produto['estoque'] . "<br><br>";
-        //}
-        
-        ?>
-        <form action="#" method="POST">
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-warning text-dark">Atualizar Produto</div>
+        <div class="card-body">
+          <form action="atualizar.php" method="post">
+            <input type="hidden" name="id" value="<?= $produto['id'] ?>">
             <div class="mb-3">
-                Nome: <input value="
-                <?php echo $produto["nome"];?>" class="form-control" type="texte" name="produto">
+              <label class="form-label">Nome</label>
+              <input type="text" name="nome" class="form-control" value="<?= htmlspecialchars($produto['nome']) ?>" required>
             </div>
             <div class="mb-3">
-                Preço: <input value="<?php echo $produto["preco"]; ?> " class="form-control" type="texte" name="preco">
+              <label class="form-label">Preço (R$)</label>
+              <input type="number" step="0.01" name="preco" class="form-control" value="<?= $produto['preco'] ?>" required>
             </div>
             <div class="mb-3">
-                Quantidade: <input value="<?php echo $produto["quantidade"]; ?> " class="form-control" type="texte" name="quantidade">
+              <label class="form-label">Quantidade</label>
+              <input type="number" name="quantidade" class="form-control" value="<?= $produto['quantidade'] ?>" required>
             </div>
-            <button type="submit" class="btn btn-primary">Atualizar</button>
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-warning text-dark"><i class="fa fa-save"></i> Atualizar</button>
+              <a href="listar.php" class="btn btn-secondary">Voltar</a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
-        </script>
-</body>
-
-</html>
+  </div>
+</div>
+<?php include 'rodape.php'; ?>
